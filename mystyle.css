@@ -1,19 +1,20 @@
 body {
-  background-color: lightblue;
+  background-color: rgb(245,232,199);
 }
 
 p {
   background-color: white;
-  border-radius: 25px;
+  border-radius: 5px;
+  padding: 4px 4px 4px 4px;
 }
 
 h2 {
   background-color: white;
   border-color:red;  
-  border-right-style: solid;
+  border-left-style: solid;
 }
 
-h2::before {
+#xxh2::before {
   font-weight: bold;
   color: navy;
   content: "";
