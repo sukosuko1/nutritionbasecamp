@@ -1,12 +1,12 @@
 body {
-  background-color: rgb(252,245,230);
+  background-color: rgb(254,249,240);
   font-family: 'Roboto', Arial, serif;
 }
 
 p {
   background-color: white;
   border-radius: 5px;
-  padding: 14px 4px 14px 4px;
+  padding: 10px 10px 10px 10px;
 }
 
 h2 {
