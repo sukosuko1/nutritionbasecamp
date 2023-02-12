@@ -1,3 +1,24 @@
 body {
   background-color: lightblue;
 }
+
+p {
+  background-color: white;
+  border-radius: 25px;
+}
+
+h2 {
+  background-color: white;
+  border-color:red;  
+  border-right-style: blue;
+}
+
+h2::before {
+  font-weight: bold;
+  color: navy;
+  content: "";
+  border-color:red;  
+  border-left-style: solid;
+
+}
+
