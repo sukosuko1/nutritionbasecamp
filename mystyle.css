@@ -10,7 +10,7 @@ p {
 h2 {
   background-color: white;
   border-color:red;  
-  border-right-style: blue;
+  border-right-style: solid;
 }
 
 h2::before {
