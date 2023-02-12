@@ -13,7 +13,7 @@ h2 {
   background-color: white;
   border-color:red;  
   border-left-style: solid;
-  padding: 10px 0px 0px 0px;
+  padding: 0px 10px 0px 0px;
 }
 
 #xxh2::before {
