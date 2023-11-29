@@ -115,10 +115,14 @@ button:disabled {
 
 
 <script type="text/javascript">
-let numSentences = 0;
+
+
+  let numSentences = 0;
 let numParagraphs = 0;
 let numChapters = 0;
-let intervalId;
+let sentenceIntervalId;
+let paragraphIntervalId;
+let writeFasterButtonAdded = false;
 
 const writeSentenceButton = document.getElementById('write-sentence');
 const composeParagraphButton = document.getElementById('compose-paragraph');
@@ -134,9 +138,13 @@ const closePopupButton = document.getElementById('close-popup');
 writeSentenceButton.addEventListener('click', () => {
   numSentences++;
   sentencesDiv.textContent = `${numSentences} Sentences`;
-  if (numSentences >= 10) {
+  
+  if (numSentences === 10) {
     composeParagraphButton.disabled = false;
-    addAutoWriteButton(composeParagraphButton, writeSentenceButton);
+    addAutoWriteButton(composeParagraphButton, writeSentenceButton, 1000);
+  } else if (numSentences === 30 && !writeFasterButtonAdded) {
+    addWriteFasterButton(writeSentenceButton, 150);
+    writeFasterButtonAdded = true;
   }
 });
 
@@ -147,9 +155,10 @@ composeParagraphButton.addEventListener('click', () => {
     sentencesDiv.textContent = `${numSentences} Sentences`;
     paragraphsDiv.textContent = `${numParagraphs} Paragraphs`;
     composeParagraphButton.disabled = true;
-    if (numParagraphs >= 10) {
+    
+    if (numParagraphs === 10) {
       editChapterButton.disabled = false;
-      addAutoWriteButton(editChapterButton, composeParagraphButton);
+      addAutoWriteButton(editChapterButton, composeParagraphButton, 1000);
     }
   }
 });
@@ -161,46 +170,45 @@ editChapterButton.addEventListener('click', () => {
     paragraphsDiv.textContent = `${numParagraphs} Paragraphs`;
     chaptersDiv.textContent = `${numChapters} Chapters`;
     editChapterButton.disabled = true;
+    
     if (numChapters >= 20) {
       congratulationsDiv.style.display = 'block';
     } else {
       showChapterPopup(generateFunnyTitle());
-      addAutoWriteButton(composeParagraphButton, writeSentenceButton);
+      addAutoWriteButton(writeSentenceButton, editChapterButton, 1000);
     }
   }
 });
 
-function generateFunnyTitle() {
-  // Add your funny title generation logic here
-  const titles = [
-    "The Adventures of Clumsy Clam",
-    "The Misadventures of Silly Squirrel",
-    "The Wacky World of Goofy Gopher",
-    // Add more funny titles as needed
-  ];
-  return titles[numChapters % titles.length];
-}
-
-function addAutoWriteButton(targetButton, triggerButton) {
+function addAutoWriteButton(targetButton, triggerButton, interval) {
   const autoWriteButton = document.createElement('button');
   autoWriteButton.textContent = 'Auto Write';
-  autoWriteButton.style.backgroundColor = '#333';
-  autoWriteButton.style.color = '#fff';
-  autoWriteButton.style.border = 'none';
-  autoWriteButton.style.borderRadius = '5px';
-  autoWriteButton.style.cursor = 'pointer';
-  targetButton.parentNode.insertBefore(autoWriteButton, targetButton.nextSibling);
   
   autoWriteButton.addEventListener('click', () => {
-    intervalId = setInterval(() => {
-      triggerButton.click();
-      if (numSentences < 10 || numParagraphs < 10) {
-        clearInterval(intervalId);
-        autoWriteButton.remove();
-      }
-    }, 1000);
+    triggerButton.click();
   });
+  
+  targetButton.parentNode.insertBefore(autoWriteButton, targetButton.nextSibling);
+  
+  if (targetButton === writeSentenceButton) {
+    sentenceIntervalId = setInterval(() => {
+      triggerButton.click();
+    }, interval);
+  } else if (targetButton === composeParagraphButton) {
+    paragraphIntervalId = setInterval(() => {
+      triggerButton.click();
+    }, interval);
+  }
 }
 
+function addWriteFasterButton(targetButton, interval) {
+  const writeFasterButton = document.createElement('button');
+  writeFasterButton.textContent = 'Write Faster';
+  
+  writeFasterButton.addEventListener('click', () => {
+    targetButton.click();
+  });
+  
+  targetButton.parentNode.insertBefore(writeFasterBu…[omitted]
   
 </script>
