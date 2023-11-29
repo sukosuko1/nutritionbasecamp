@@ -115,9 +115,7 @@ button:disabled {
 
 
 <script type="text/javascript">
-
-
-  let numSentences = 0;
+let numSentences = 0;
 let numParagraphs = 0;
 let numChapters = 0;
 let sentenceIntervalId;
@@ -171,11 +169,11 @@ editChapterButton.addEventListener('click', () => {
     chaptersDiv.textContent = `${numChapters} Chapters`;
     editChapterButton.disabled = true;
     
-    if (numChapters >= 20) {
+    if (numChapters === 20) {
       congratulationsDiv.style.display = 'block';
     } else {
       showChapterPopup(generateFunnyTitle());
-      addAutoWriteButton(writeSentenceButton, editChapterButton, 1000);
+      addAutoWriteButton(chapterTitle, editChapterButton, 1000);
     }
   }
 });
@@ -190,15 +188,9 @@ function addAutoWriteButton(targetButton, triggerButton, interval) {
   
   targetButton.parentNode.insertBefore(autoWriteButton, targetButton.nextSibling);
   
-  if (targetButton === writeSentenceButton) {
-    sentenceIntervalId = setInterval(() => {
-      triggerButton.click();
-    }, interval);
-  } else if (targetButton === composeParagraphButton) {
-    paragraphIntervalId = setInterval(() => {
-      triggerButton.click();
-    }, interval);
-  }
+  intervalId = setInterval(() => {
+    triggerButton.click();
+  }, interval);
 }
 
 function addWriteFasterButton(targetButton, interval) {
@@ -209,6 +201,20 @@ function addWriteFasterButton(targetButton, interval) {
     targetButton.click();
   });
   
-  targetButton.parentNode.insertBefore(writeFasterBu…[omitted]
+  targetButton.parentNode.insertBefore(writeFasterButton, targetButton.nextSibling);
+  
+  intervalId = setInterval(() => {
+    targetButton.click();
+  }, interval);
+}
+
+function showChapterPopup(title) {
+  chapterTitle.textContent = title;
+  chapterPopup.style.display = 'block';
+}
+
+function generateFunnyTitle() {
+  // Code to generate a funny chapter title
+}
   
 </script>
