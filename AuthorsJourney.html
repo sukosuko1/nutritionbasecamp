@@ -64,6 +64,7 @@ button {
 
 
 <script type="text/javascript">
+
 let numSentences = 0;
 let numParagraphs = 0;
 let numChapters = 0;
@@ -79,34 +80,34 @@ const congratulationsDiv = document.getElementById('congratulations');
 writeSentenceButton.addEventListener('click', () => {
   numSentences++;
   sentencesDiv.textContent = `${numSentences} Sentences`;
-  
   if (numSentences >= 10) {
     composeParagraphButton.disabled = false;
   }
 });
 
 composeParagraphButton.addEventListener('click', () => {
-  numSentences -= 10;
-  numParagraphs++;
-  
-  sentencesDiv.textContent = `${numSentences} Sentences`;
-  paragraphsDiv.textContent = `${numParagraphs} Paragraphs`;
-  
-  if (numParagraphs >= 10) {
-    editChapterButton.disabled = false;
+  if (numSentences >= 10) {
+    numSentences -= 10;
+    numParagraphs++;
+    sentencesDiv.textContent = `${numSentences} Sentences`;
+    paragraphsDiv.textContent = `${numParagraphs} Paragraphs`;
+    composeParagraphButton.disabled = true;
+    if (numParagraphs >= 10) {
+      editChapterButton.disabled = false;
+    }
   }
 });
 
 editChapterButton.addEventListener('click', () => {
-  numParagraphs -= 10;
-  numChapters++;
-  
-  paragraphsDiv.textContent = `${numParagraphs} Paragraphs`;
-  chaptersDiv.textContent = `${numChapters} Chapters`;
-  
-  if (numChapters >= 20) {
-    congratulationsDiv.style.display = 'block';
+  if (numParagraphs >= 10) {
+    numParagraphs -= 10;
+    numChapters++;
+    paragraphsDiv.textContent = `${numParagraphs} Paragraphs`;
+    chaptersDiv.textContent = `${numChapters} Chapters`;
+    editChapterButton.disabled = true;
+    if (numChapters >= 20) {
+      congratulationsDiv.style.display = 'block';
+    }
   }
-});
-
+});  
 </script>
