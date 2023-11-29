@@ -115,10 +115,10 @@ button:disabled {
 
 
 <script type="text/javascript">
-
 let numSentences = 0;
 let numParagraphs = 0;
 let numChapters = 0;
+let intervalId;
 
 const writeSentenceButton = document.getElementById('write-sentence');
 const composeParagraphButton = document.getElementById('compose-paragraph');
@@ -127,12 +127,16 @@ const sentencesDiv = document.getElementById('sentences');
 const paragraphsDiv = document.getElementById('paragraphs');
 const chaptersDiv = document.getElementById('chapters');
 const congratulationsDiv = document.getElementById('congratulations');
+const chapterPopup = document.getElementById('chapter-popup');
+const chapterTitle = document.getElementById('chapter-title');
+const closePopupButton = document.getElementById('close-popup');
 
 writeSentenceButton.addEventListener('click', () => {
   numSentences++;
   sentencesDiv.textContent = `${numSentences} Sentences`;
   if (numSentences >= 10) {
     composeParagraphButton.disabled = false;
+    addAutoWriteButton(composeParagraphButton, writeSentenceButton);
   }
 });
 
@@ -145,6 +149,7 @@ composeParagraphButton.addEventListener('click', () => {
     composeParagraphButton.disabled = true;
     if (numParagraphs >= 10) {
       editChapterButton.disabled = false;
+      addAutoWriteButton(editChapterButton, composeParagraphButton);
     }
   }
 });
@@ -158,7 +163,44 @@ editChapterButton.addEventListener('click', () => {
     editChapterButton.disabled = true;
     if (numChapters >= 20) {
       congratulationsDiv.style.display = 'block';
+    } else {
+      showChapterPopup(generateFunnyTitle());
+      addAutoWriteButton(composeParagraphButton, writeSentenceButton);
     }
   }
-});  
+});
+
+function generateFunnyTitle() {
+  // Add your funny title generation logic here
+  const titles = [
+    "The Adventures of Clumsy Clam",
+    "The Misadventures of Silly Squirrel",
+    "The Wacky World of Goofy Gopher",
+    // Add more funny titles as needed
+  ];
+  return titles[numChapters % titles.length];
+}
+
+function addAutoWriteButton(targetButton, triggerButton) {
+  const autoWriteButton = document.createElement('button');
+  autoWriteButton.textContent = 'Auto Write';
+  autoWriteButton.style.backgroundColor = '#333';
+  autoWriteButton.style.color = '#fff';
+  autoWriteButton.style.border = 'none';
+  autoWriteButton.style.borderRadius = '5px';
+  autoWriteButton.style.cursor = 'pointer';
+  targetButton.parentNode.insertBefore(autoWriteButton, targetButton.nextSibling);
+  
+  autoWriteButton.addEventListener('click', () => {
+    intervalId = setInterval(() => {
+      triggerButton.click();
+      if (numSentences < 10 || numParagraphs < 10) {
+        clearInterval(intervalId);
+        autoWriteButton.remove();
+      }
+    }, 1000);
+  });
+}
+
+  
 </script>
