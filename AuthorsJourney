@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Paperclip Game</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+    <div id="container">
+      <h1>Paperclip Game</h1>
+      <button id="write-sentence">Write Sentence</button>
+      <div id="sentences">0 Sentences</div>
+      <button id="compose-paragraph" disabled>Compose Paragraph</button>
+      <div id="paragraphs">0 Paragraphs</div>
+      <button id="edit-chapter" disabled>Edit Chapter</button>
+      <div id="chapters">0 Chapters</div>
+    </div>
+    <div id="congratulations">
+      <h1>Congratulations!</h1>
+      <p>You have finished your novel!</p>
+    </div>
+  </body>
+  <script src="script.js"></script>
+</html>
+
+<style>
+#container {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+button {
+  margin: 10px;
+  padding: 5px 10px;
+  font-size: 20px;
+}
+
+#sentences, #paragraphs, #chapters {
+  font-size: 24px;
+  margin: 10px;
+}
+
+#congratulations {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255,255,255,0.8);
+  text-align: center;
+}
+
+#congratulations h1 {
+  font-size: 72px;
+  margin-top: 20%;
+  text-shadow: 2px 2px #000000;
+}
+
+#congratulations p {
+  font-size: 36px;
+}
+</style>
+
+
+<script type="text/javascript">
+let numSentences = 0;
+let numParagraphs = 0;
+let numChapters = 0;
+
+const writeSentenceButton = document.getElementById('write-sentence');
+const composeParagraphButton = document.getElementById('compose-paragraph');
+const editChapterButton = document.getElementById('edit-chapter');
+const sentencesDiv = document.getElementById('sentences');
+const paragraphsDiv = document.getElementById('paragraphs');
+const chaptersDiv = document.getElementById('chapters');
+const congratulationsDiv = document.getElementById('congratulations');
+
+writeSentenceButton.addEventListener('click', () => {
+  numSentences++;
+  sentencesDiv.textContent = `${numSentences} Sentences`;
+  
+  if (numSentences >= 10) {
+    composeParagraphButton.disabled = false;
+  }
+});
+
+composeParagraphButton.addEventListener('click', () => {
+  numSentences -= 10;
+  numParagraphs++;
+  
+  sentencesDiv.textContent = `${numSentences} Sentences`;
+  paragraphsDiv.textContent = `${numParagraphs} Paragraphs`;
+  
+  if (numParagraphs >= 10) {
+    editChapterButton.disabled = false;
+  }
+});
+
+editChapterButton.addEventListener('click', () => {
+  numParagraphs -= 10;
+  numChapters++;
+  
+  paragraphsDiv.textContent = `${numParagraphs} Paragraphs`;
+  chaptersDiv.textContent = `${numChapters} Chapters`;
+  
+  if (numChapters >= 20) {
+    congratulationsDiv.style.display = 'block';
+  }
+});
+
+</script>
