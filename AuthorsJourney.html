@@ -23,21 +23,41 @@
 </html>
 
 <style>
+  body {
+  background-color: #f4f4f4;
+  font-family: Arial, sans-serif;
+}
+
 #container {
   width: 80%;
   margin: 0 auto;
   text-align: center;
 }
 
+h1 {
+  color: #333;
+}
+
 button {
   margin: 10px;
   padding: 5px 10px;
   font-size: 20px;
+  background-color: #ffcc00;
+  color: #333;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
 #sentences, #paragraphs, #chapters {
   font-size: 24px;
   margin: 10px;
+  color: #333;
 }
 
 #congratulations {
@@ -54,12 +74,43 @@ button {
 #congratulations h1 {
   font-size: 72px;
   margin-top: 20%;
-  text-shadow: 2px 2px #000000;
+  text-shadow: 2px 2px #ffcc00;
 }
 
 #congratulations p {
   font-size: 36px;
 }
+
+#chapter-popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: #ffcc00;
+  color: #333;
+  border-radius: 5px;
+}
+
+#chapter-popup h2 {
+  font-size: 24px;
+}
+
+#close-popup {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  background-color: #333;
+  color: #fff;
+  border-radius: 50%;
+  border: none;
+}
+  
+
 </style>
 
 
